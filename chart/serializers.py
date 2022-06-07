@@ -6,12 +6,4 @@ from chart import models
 class OhlcSerialiser(serializers.ModelSerializer):
    class Meta:
        model = models.CandleStick
-       fields = [
-            'id',
-            'ticker',
-            'timestamp',
-            'open_price',
-            'high_price',
-            'low_price',
-            'close_price'
-        ]
+       fields = ['id', 'ticker', 'timestamp', 'open_price', 'high_price', 'low_price', 'close_price']
