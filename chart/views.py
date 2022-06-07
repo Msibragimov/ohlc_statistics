@@ -11,11 +11,6 @@ class ChartsListView(viewsets.GenericViewSet, mixins.ListModelMixin):
     serializer_class = OhlcSerialiser
     permission_classes = [permissions.IsAuthenticated]
 
-    def list(self, request, *args, **kwargs):
-        print(kwargs)
-        return super().list(request, *args, **kwargs)
-
-
     def get_queryset(self):
         startime = make_aware(datetime.fromtimestamp(int(self.request.GET['startime'])))
         endtime = make_aware(datetime.fromtimestamp(int(self.request.GET['endtime'])))
