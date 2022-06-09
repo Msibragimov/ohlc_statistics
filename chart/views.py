@@ -12,9 +12,15 @@ class ChartsListView(viewsets.GenericViewSet, mixins.ListModelMixin):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        startime = make_aware(datetime.fromtimestamp(int(self.request.GET['startime'])))
-        endtime = make_aware(datetime.fromtimestamp(int(self.request.GET['endtime'])))
-        queryset = CandleStick.objects.filter(ticker=self.kwargs.get('ticker'), timestamp__range=[startime, endtime]).all()
+        start = self.request.GET.get('start')
+        end = self.request.GET.get('end')
+        filters = {}
+
+        if start:
+            filters['timestamp__gte'] = datetime.fromtimestamp(int(self.request.GET['start']))
+        if end:
+            filters['timestamp__lte'] =  datetime.fromtimestamp(int(self.request.GET['end']))
+        queryset = CandleStick.objects.filter(ticker=self.kwargs.get('ticker'), **filters).all()
         
         return queryset
 
