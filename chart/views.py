@@ -1,7 +1,6 @@
-from rest_framework import permissions
+from rest_framework_api_key.permissions import HasAPIKey
 from rest_framework import mixins, viewsets
 from datetime import datetime
-from django.utils.timezone import make_aware
 
 from .serializers import OhlcSerialiser
 from .models import CandleStick
@@ -9,7 +8,7 @@ from .models import CandleStick
 class ChartsListView(viewsets.GenericViewSet, mixins.ListModelMixin):
     queryset = CandleStick.objects.all()
     serializer_class = OhlcSerialiser
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [HasAPIKey]
 
     def get_queryset(self):
         start = self.request.GET.get('start')

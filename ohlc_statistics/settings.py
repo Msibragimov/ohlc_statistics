@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework_api_key',
     'rest_framework',
     'chart',
 ]
@@ -112,14 +113,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Django rest-framework
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework_api_key.permissions.HasAPIKey",
+    ]
 }
 
 
 # Drf API key
 
-API_KEY_SECRET = os.environ['API_KEY_SECRET']
+API_KEY_CUSTOM_HEADER = os.environ['API_KEY_CUSTOM_HEADER']
 
 
 # Internationalization
